@@ -692,18 +692,18 @@ const state = {
     bookmarks: []
 };
 const createRecipeObject = function(data) {
-    const { recipe  } = data;
+    const { recipe: recipe1  } = data;
     return {
-        id: recipe.id,
-        title: recipe.title,
-        publisher: recipe.publisher,
-        sourceUrl: recipe.source_url,
-        image: recipe.image_url,
-        servings: recipe.servings,
-        cookingTime: recipe.cooking_time,
-        ingredients: recipe.ingredients,
-        ...recipe.key && {
-            key: recipe.key
+        id: recipe1.id,
+        title: recipe1.title,
+        publisher: recipe1.publisher,
+        sourceUrl: recipe1.source_url,
+        image: recipe1.image_url,
+        servings: recipe1.servings,
+        cookingTime: recipe1.cooking_time,
+        ingredients: recipe1.ingredients,
+        ...recipe1.key && {
+            key: recipe1.key
         }
     };
 };
@@ -728,7 +728,7 @@ const loadSearchResults = async function(query) {
                 publisher: rec.publisher,
                 image: rec.image_url,
                 ...rec.key && {
-                    key: rec.key
+                    key: recipe.key
                 }
             };
         });
@@ -752,9 +752,9 @@ const updateServings = function(newServings) {
 const persistBookmarks = function() {
     localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
 };
-const addBookmark = function(recipe) {
-    state.bookmarks.push(recipe);
-    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+const addBookmark = function(recipe1) {
+    state.bookmarks.push(recipe1);
+    if (recipe1.id === state.recipe.id) state.recipe.bookmarked = true;
     persistBookmarks();
 };
 const deleteBookmark = function(id) {
@@ -779,7 +779,7 @@ const uploadRecipe = async function(newRecipe) {
                 description
             };
         });
-        const recipe = {
+        const recipe1 = {
             title: newRecipe.title,
             source_url: newRecipe.sourceUrl,
             image_url: newRecipe.image,
@@ -788,7 +788,7 @@ const uploadRecipe = async function(newRecipe) {
             servings: +newRecipe.servings,
             ingredients
         };
-        const { data  } = await (0, _helper.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.KEY)}`, recipe);
+        const { data  } = await (0, _helper.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.KEY)}`, recipe1);
         console.log(data.recipe);
         // state.recipe = {...createRecipeObject(data), key: data.recipe.key};
         state.recipe = createRecipeObject(data);
@@ -799,7 +799,7 @@ const uploadRecipe = async function(newRecipe) {
     }
 };
 
-},{"./config":"k5Hzs","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs","./helper":"lVRAz"}],"k5Hzs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "API_URL", ()=>API_URL);
@@ -860,7 +860,7 @@ const sendJSON = async function(url, uploadData) {
     }
 };
 
-},{"./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l60JC":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./config":"k5Hzs"}],"l60JC":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
